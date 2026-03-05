@@ -10,6 +10,7 @@
 #define RSE 2
 #define ADJ 3
 #define GME 4
+#define CHAT 6
 
 &lt {
     flavor = "balanced";
@@ -99,6 +100,20 @@
 
             label = "FUNCTION";
         };
+
+        cs2_chat: cs2_chat {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&to CHAT>, <&kp Y>;
+            label = "CS2_CHAT";
+        };
+
+        chat_enter: chat_enter {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp RET>, <&to GME>;
+            label = "CHAT_ENTER";
+        };
     };
 
     keymap {
@@ -148,7 +163,7 @@
             label = "GME";
             bindings = <
 &kp ESCAPE      &kp N1  &kp N2  &kp N3  &kp N4  &kp NUMBER_5                  &kp F1     &kp F2  &kp T   &trans  &trans       &kp C_VOLUME_UP
-&kp LEFT_SHIFT  &kp Q   &kp W   &kp E   &kp R   &kp G                         &kp GRAVE  &trans  &trans  &trans  &kp LA(TAB)  &kp C_VOL_DN
+&kp LEFT_SHIFT  &kp Q   &kp W   &kp E   &kp R   &kp G                         &kp GRAVE  &cs2_chat  &trans  &trans  &kp LA(TAB)  &kp C_VOL_DN
 &kp LCTRL       &kp A   &kp S   &kp D   &kp B   &kp F                         &trans     &kp M   &trans  &trans  &kp LS(TAB)  &kp K_MUTE
                                         &kp C   &kp SPACE     &kp TAB  &kp K  &trans     &trans
             >;
@@ -160,6 +175,16 @@
 &trans  &trans  &trans  &trans  &trans  &trans                        &trans  &trans  &trans  &trans  &trans  &trans
 &trans  &trans  &trans  &trans  &trans  &trans                        &trans  &trans  &trans  &trans  &trans  &trans
                                 &trans  &mkp RCLK  &mkp LCLK  &trans  &trans  &trans
+            >;
+        };
+
+        chat_layer {
+            label = "CHAT";
+            bindings = <
+&trans  &trans  &trans  &trans  &trans  &trans                           &trans  &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans  &trans                           &trans  &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans  &trans                           &trans  &trans  &trans  &trans  &trans  &trans
+                                &trans  &trans  &chat_enter  &trans  &trans  &trans
             >;
         };
     };
